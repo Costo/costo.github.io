@@ -1,0 +1,13 @@
+install jekyll https://github.com/mojombo/jekyll/wiki/Install
+
+install ironruby
+
+pb compilatiopn fast-stemmer
+
+rubyinstaller instead
+
+meme prb mais message erreur plus clair : download the DevKit
+
+https://github.com/oneclick/rubyinstaller/wiki/Development-Kit
+
+gem install fast-stemmer OK !
