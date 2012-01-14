@@ -61,6 +61,8 @@ Node.js provides a [VM module][vm] with some methods to execute the JavaScript c
 
 Here is the script I came up with:
 
+{% highlight javascript %}
+
     var https = require('https'),
        vm = require('vm');
 
@@ -126,6 +128,8 @@ Here is the script I came up with:
     }).on('error', function (e) {
         console.error(e);
     });
+
+{% endhighlight %}
 
 And that's all! 
 Run <code>node script.js</code> and it outputs an array of 400+ stations.
