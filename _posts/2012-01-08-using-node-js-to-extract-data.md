@@ -16,6 +16,8 @@ In comparison, [Capital BikeShare][3] (Washington DC) provide realtime data of t
 Even if we don't have access to the data in a nice xml file for London, there's a big <code>&lt;script&gt;</code> for generating the Google Maps markers embedded in the html source of the page.
 This is what it looks like:
 
+{% highlight javascript %}
+
     function genateScript() { ...
         station = {
             id:"1",
@@ -38,7 +40,9 @@ This is what it looks like:
         });
         ShowInfoBulle(marker, 0, station)
 
-        ... repeated 400 more times ...
+{% endhighlight %}
+
+... repeated 400 more times ...
 
 Even if it's a bit messy, there is all the information we need: station id and name, latitude, longitude and the number of bikes available.
 One way to approach this would be to use regular expressions. And it works, that is how they do it in the [PyBikes][] project.
