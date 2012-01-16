@@ -3,6 +3,12 @@ layout: post
 title: Adding a Build System for Jekyll in Sublime Text 2
 ---
 
+__Edit: 2012-01-15:__
+This post is actually useless since you just have to add <code>auto: true</code> in Jekyll's \_config.yml 
+to trigger the build automatically after a change.
+Next time I'll read the documentation first.
+
+
 I found the documentation for Sublime Text 2 Build Systems on [sublimetext.info](http://sublimetext.info/docs/en/reference/build_systems.html "Build Systems - Sublime Text Help")
 
 To add a new Build System for Jekyll it is very simple
