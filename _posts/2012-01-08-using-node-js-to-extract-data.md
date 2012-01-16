@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Using Node.js to extract data from a web page script
-excerpt: |-
-  A few weeks ago, I needed to extract data from the Barclays Cycle Hire bike map. Unlike other bike sharing systems, they don't provide their data in an easily machine readable format.
 ---
 
 A few weeks ago, I needed to extract data from the Barclays Cycle Hire [bike map][1] because unlike other bike sharing systems, they don't provide their data in an easily machine readable format. The only option we have to get the location of the station and the bikes availability is to scrape the data from  their website.
