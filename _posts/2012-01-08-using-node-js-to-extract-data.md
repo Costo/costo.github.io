@@ -59,75 +59,10 @@ Node.js provides a [VM module][vm] with some methods to execute the JavaScript c
 
 Here is the script I came up with:
 
-{% highlight javascript %}
-
-    var https = require('https'),
-       vm = require('vm');
-
-    https.get({ host: 'web.barclayscyclehire.tfl.gov.uk', path: '/maps' }, function (res) {
-        /*  Will store chunks of data while
-            we read the response */
-        var data = [],
-        /*  This array will store individual map markers
-            as they are being created by the script */
-            markers = [],
-        /*  The sandbox is the minimal environment
-            required to run the script. It consists of dummy
-            properties and methods, except for the Marker function.
-            The Marker function is invoked by the script to add
-            markers on the map. Instead, we can just store the data in the markers array */
-            sandbox = {
-                map: {},
-                imageInstalled: {},
-                ShowInfoBulle: function () { },
-                google: {
-                    maps: {
-                        LatLng: function () { },
-                        Marker: function (data) {
-                            markers.push(JSON.stringify(data));
-                        }
-                    }
-                }
-            };
-
-        res.on('data', function (d) {
-            // Store each chunck of data
-            data.push(d);
-        });
-
-        res.on('end', function () {
-            /*  RegExp to extract script tags from the page 
-                Yes we still need Regular Expressions! */
-            var pattern = /<script[^>]*>([\s\S]*?)<\/script>/ig,
-            /*  The whole page content */
-                page = data.join(''),
-            /*  Will contain RegExp matches */
-                match;
-            // Loop on each RegExp matches
-            while (match = pattern.exec(page)) {
-                // Look for the 'genateScript' function in the script
-                // This is the function that is normaly executed to place
-                // markers on the map
-                if (match[1].indexOf('genateScript') > -1) {
-                    // Run the script in the sandbox
-                    vm.runInNewContext(match[1], sandbox);
-                    // The 'genateScript' function should now be defined in the sandbox
-                    // Execute it
-                    sandbox.genateScript();
-                    break;
-                }
-            }
-
-            // The markers array has been populated when we executed the genateScript function
-            // Write the results  in JSON to the standard output
-            process.stdout.write('[' + markers.join(', ') + ']');
-        });
-
-    }).on('error', function (e) {
-        console.error(e);
-    });
-
-{% endhighlight %}
+<script src="https://gist.github.com/1650831.js?file=BarclaysCycleHire.js">/**/</script>
+<noscript>
+   <p>No JavaScript? <a href='https://gist.github.com/1650831'>Follow this link</a>.</p>
+</noscript>
 
 And that's all! 
 Run <code>node script.js</code> and it outputs an array of 400+ stations.
