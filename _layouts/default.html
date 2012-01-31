@@ -4,10 +4,12 @@
 {% include head.html %}
 
 <body>
+{% include top.html %}
+
 <div class="container">
   <header class="hero-unit">
     <h1>Hello.</h1>
-    <p>My name is Vincent Costel and this is my (empty) blog</p>
+    <p>My name is Vincent Costel and this is my blog</p>
   </header>
   <div class='row'>
     <div class='span16'>
@@ -29,9 +31,7 @@
       {% endunless %}
     {% endfor %}
   </div>
-  <footer>
-    <p>&copy; Costo 2011</p>
-  </footer>
+  {% include footer.html %}
 </div> <!-- /container -->
 
 {% include analytics.html %}
