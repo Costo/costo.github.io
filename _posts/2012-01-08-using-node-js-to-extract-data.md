@@ -11,7 +11,7 @@ In comparison, [Capital BikeShare][3] (Washington DC) provide realtime data of t
 [3]: http://www.capitalbikeshare.com/ "Capital BikeShare"
 
 
-Even if we don't have access to the data in a nice xml file for London, there's a big <code>&lt;script&gt;</code> for generating the Google Maps markers embedded in the html source of the page.
+Even if we don't have access to the data in a nice xml file for London, there's a big `<script>` for generating the Google Maps markers embedded in the html source of the page.
 This is what it looks like:
 
 {% highlight javascript %}
@@ -44,15 +44,15 @@ This is what it looks like:
 
 Even if it's a bit messy, there is all the information we need: station id and name, latitude, longitude and the number of bikes available.
 One way to approach this would be to use regular expressions. And it works, that is how they do it in the [PyBikes][] project.
-But I wondered if there was a way to do it in Node.js because, hey, it's way cooler than regular expressions. The idea is to execute the script, but instead of adding markers on the map, we would just output the data passed to <code>google.maps.Marker</code>.
+But I wondered if there was a way to do it in Node.js because, hey, it's way cooler than regular expressions. The idea is to execute the script, but instead of adding markers on the map, we would just output the data passed to `google.maps.Marker`.
 
-Node.js provides a [VM module][vm] with some methods to execute the JavaScript code it's given to. We just have to extract the script from the page and feed it to  <code>vm.runInNewContext(code, [sandbox], [filename])</code> .
+Node.js provides a [VM module][vm] with some methods to execute the JavaScript code it's given to. We just have to extract the script from the page and feed it to  `vm.runInNewContext(code, [sandbox], [filename])` .
 
-> &shy;<code>vm.runInNewContext</code> compiles <code>code</code> to run in <code>sandbox</code>
-> as if it were loaded from <code>filename</code>,
+> &shy;`vm.runInNewContext` compiles `code` to run in `sandbox`
+> as if it were loaded from `filename`,
 > then runs it and returns the result. Running code does not have access to local scope and
-> the object <code>sandbox</code> will be used as the global object for <code>code</code>.
-> <code>sandbox</code> and <code>filename</code> are optional.
+> the object `sandbox` will be used as the global object for `code`.
+> `sandbox` and `filename` are optional.
 
 [PyBikes]: https://github.com/eskerda/PyBikes/blob/master/lib/barclays.py
 [vm]: http://nodejs.org/docs/latest/api/vm.html
@@ -65,6 +65,6 @@ Here is the script I came up with:
 </noscript>
 
 And that's all! 
-Run <code>node script.js</code> and it outputs an array of 400+ stations.
+Run `node script.js` and it outputs an array of 400+ stations.
 
 It was my first attempt at using Node.js and I found it pretty straightforward.
