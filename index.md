@@ -1,4 +1,4 @@
 ---
-title: Vincent Costel | This is my blog
+title: Vincent Costel
 layout: default
 ---
