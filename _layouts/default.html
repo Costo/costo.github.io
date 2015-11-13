@@ -1,28 +1,20 @@
 <!DOCTYPE html>
 <html>
 
-{% include head.html %}
+  {% include head.html %}
 
-<body>
-{% include top.html %}
+  <body>
 
-<div class="container">
-  <header class="hero-unit">
-    <h1>Hello.</h1>
-    <p>My name is Vincent Costel</p>
-  </header>
-  <div class='row'>
-    <div class='span16'>
-      {{ content }}
+    {% include header.html %}
+
+    <div class="page-content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
     </div>
-  </div>
-  <div class='row'>
-   
-  </div>
-  {% include footer.html %}
-</div> <!-- /container -->
 
-{% include analytics.html %}
+    {% include footer.html %}
 
-</body>
+  </body>
+
 </html>

@@ -1,19 +1,11 @@
 ---
-title: About
 layout: page
+title: About
+permalink: /about/
 ---
-Me
-=========
-Hi, I'm Vincent Costel, a web developer living in Montréal, Canada.
 
-This blog
-=========
+This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
 
-This site is powered by [Jekyll][1], a static site generator. It is hosted on [GitHub][2].  
-The too familiar look is due to the use of [Twitter Bootstrap][3] and my lack of design skills.
+You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
 
-
-
-[1]: https://github.com/mojombo/jekyll/wiki
-[2]: https://github.com/Costo/costo.github.com
-[3]: http://twitter.github.com/bootstrap/
+You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)

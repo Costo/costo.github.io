@@ -1,26 +1,15 @@
-<!DOCTYPE html>
-<html>
+---
+layout: default
+---
+<div class="post">
 
-{% include head.html %}
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
+  </header>
 
-<body>
-{% include top.html %}
+  <article class="post-content">
+    {{ content }}
+  </article>
 
-<div class="container">
-
-   <header class="hero-unit">
-      <h1>{{ page.title }}</h1>
-      <p><time pubdate datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date_to_string }}</time></p>
-   </header>
-   <div class='row'>
-      <div class='span16'>
-         {{ content }}
-      </div>
-   </div>
-  {% include footer.html %}
-</div> <!-- /container -->
-
-{% include analytics.html %}
-
-</body>
-</html>
+</div>
