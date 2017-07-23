@@ -18,6 +18,7 @@
             }
             pre {
                 filter: invert(100%);
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
             }
         </style>
     </head>
@@ -47,14 +48,14 @@
                 let updateDisplay = function(event) {
 
                     if(event.target.classList.contains('component')) {
-                        hex.value = displayHex.textContent = String('0' + (+red.value).toString(16)).slice(-2)
-                                                           + String('0' + (+green.value).toString(16)).slice(-2)
-                                                           + String('0' + (+blue.value).toString(16)).slice(-2);
+                        hex.value = displayHex.textContent = decToHex(red.value)
+                                                           + decToHex(green.value)
+                                                           + decToHex(blue.value);
                     }
                     else {
-                        red.value = parseInt(hex.value.substr(0,2), 16);
-                        green.value = parseInt(hex.value.substr(2,2), 16);
-                        blue.value = parseInt(hex.value.substr(4,2), 16);
+                        red.value = hexToDec(hex.value.substr(0,2));
+                        green.value = hexToDec(hex.value.substr(2,2));
+                        blue.value = hexToDec(hex.value.substr(4,2));
                     }
                     
                     document.body.style.backgroundColor = document.body.style.color = displayRGB.textContent = 'rgb(' + red.value + ',' + green.value + ',' + blue.value + ')';
@@ -62,6 +63,15 @@
 
                 document.addEventListener('keyup', updateDisplay, true);
                 document.addEventListener('change', updateDisplay, true);
+
+                function decToHex(value) {
+                    return String('0' + (+value).toString(16)).slice(-2);
+                }
+
+                function hexToDec(value) {
+                    return parseInt(value, 16);
+                }
+
             })();
         </script>
     </body>
