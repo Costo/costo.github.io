@@ -8,15 +8,24 @@ var terraformer_wkt_parser_1 = __importDefault(require("terraformer-wkt-parser")
 var json_stringify_pretty_compact_1 = __importDefault(require("json-stringify-pretty-compact"));
 var form = document.getElementById("wkt-form");
 var result = document.getElementById("geojson-result");
+var link = document.getElementById("geojsonio-link");
 form.addEventListener('submit', function (ev) {
     ev.preventDefault();
     var el = this.elements.namedItem('wkt');
     try {
         var geometry = terraformer_wkt_parser_1.default.parse(el.value);
-        result.value = json_stringify_pretty_compact_1.default(geometry);
+        var geojson = json_stringify_pretty_compact_1.default(geometry);
+        result.value = geojson;
+        link.href = "http://geojson.io/#data=data:application/json," + encodeURIComponent(geojson);
     }
     catch (error) {
         result.value = error;
+        link.href = "#";
+    }
+});
+link.addEventListener('click', function (ev) {
+    if (this.host === window.location.host) {
+        ev.preventDefault();
     }
 });
 
