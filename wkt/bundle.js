@@ -7,11 +7,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var terraformer_wkt_parser_1 = __importDefault(require("terraformer-wkt-parser"));
 var json_stringify_pretty_compact_1 = __importDefault(require("json-stringify-pretty-compact"));
 var form = document.getElementById("wkt-form");
+var input = form.elements.namedItem('wkt');
 var result = document.getElementById("geojson-result");
 var link = document.getElementById("geojsonio-link");
 form.addEventListener('submit', function (ev) {
     ev.preventDefault();
-    var el = this.elements.namedItem('wkt');
+    parseWKT(input);
+});
+link.addEventListener('click', function (ev) {
+    if (this.host === window.location.host) {
+        ev.preventDefault();
+    }
+});
+if (location.hash) {
+    input.value = decodeURIComponent(location.hash.substring(1));
+    location.hash = '';
+    parseWKT(input);
+}
+function parseWKT(el) {
     try {
         var geometry = terraformer_wkt_parser_1.default.parse(el.value);
         var geojson = json_stringify_pretty_compact_1.default(geometry);
@@ -22,12 +35,7 @@ form.addEventListener('submit', function (ev) {
         result.value = error;
         link.href = "#";
     }
-});
-link.addEventListener('click', function (ev) {
-    if (this.host === window.location.host) {
-        ev.preventDefault();
-    }
-});
+}
 
 },{"json-stringify-pretty-compact":2,"terraformer-wkt-parser":3}],2:[function(require,module,exports){
 function stringify (obj, options) {
