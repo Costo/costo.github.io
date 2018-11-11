@@ -12,10 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "json-stringify-pretty-compact": "^1.2.0",
+    "query-string": "^6.2.0",
     "requirejs": "^2.3.6",
     "terraformer-wkt-parser": "^1.2.0"
   },
   "devDependencies": {
+    "@types/query-string": "^6.1.1",
     "browser-sync": "^2.26.3",
     "browserify": "^16.2.3",
     "tsify": "^4.0.0",
