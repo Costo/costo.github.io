@@ -1,0 +1,26 @@
+{
+  "name": "graph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify \"main.ts\" -p [ tsify ] > bundle.js",
+    "run": "browser-sync start -s -f ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/d3": "^5.7.2",
+    "@types/dagre-d3": "^0.4.39",
+    "d3": "^5.12.0",
+    "dagre-d3": "^0.6.3",
+    "requirejs": "^2.3.6"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "browserify": "^16.5.0",
+    "tsify": "^4.0.1",
+    "typescript": "^3.6.4"
+  }
+}
