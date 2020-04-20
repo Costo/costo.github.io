@@ -1,4 +1,5 @@
 import 'phaser';
+import { Player, Elliot, Robin } from './player';
 
 export default class Demo extends Phaser.Scene
 {
@@ -13,7 +14,8 @@ export default class Demo extends Phaser.Scene
         this.load.image('ground', 'assets/platform.png');
         this.load.image('star', 'assets/star.png');
         this.load.image('gem', 'assets/gem2.png');
-        this.load.image('bomb', 'assets/bomb.png');
+        this.load.image('bomb', 'assets/brocoli.png');
+        this.load.image('fireball', 'assets/fireball.png');
         this.load.spritesheet('robin', 
             'assets/dude2.png',
             { frameWidth: 32, frameHeight: 48 }
@@ -26,17 +28,8 @@ export default class Demo extends Phaser.Scene
     }
 
     platforms: Phaser.Physics.Arcade.StaticGroup;
-    player1: Phaser.Physics.Arcade.Sprite;
-    player2: Phaser.Physics.Arcade.Sprite;
-    cursors: Phaser.Types.Input.Keyboard.CursorKeys;
-    keys: {
-        'a': Phaser.Input.Keyboard.Key,
-        'w': Phaser.Input.Keyboard.Key,
-        's': Phaser.Input.Keyboard.Key,
-        'd': Phaser.Input.Keyboard.Key,
-    };
-    //stars: Phaser.Physics.Arcade.Group;
-    //gems: Phaser.Physics.Arcade.Group;
+    player1: Player;
+    player2: Player;
     tokens: Phaser.Physics.Arcade.Group;
     bomb;
     bombs;
@@ -54,18 +47,27 @@ export default class Demo extends Phaser.Scene
         this.platforms.create(600, 400, 'ground');
         this.platforms.create(50, 250, 'ground');
         this.platforms.create(750, 220, 'ground');
+
+        this.anims.create({
+            key: 'elliot-left',
+            frames: this.anims.generateFrameNumbers('elliot', { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'elliot-turn',
+            frames: [ { key: 'elliot', frame: 4 } ],
+            frameRate: 20
+        });
     
-        this.player1 = this.physics.add.sprite(100, 450, 'robin');
-        this.player2 = this.physics.add.sprite(700, 450, 'elliot');
-    
-        this.player1.setBounce(0.2);
-        this.player1.setCollideWorldBounds(true);
-        this.player1.setGravityY(300);
-    
-        this.player2.setBounce(0.2);
-        this.player2.setCollideWorldBounds(true);
-        this.player2.setGravityY(300);
-    
+        this.anims.create({
+            key: 'elliot-right',
+            frames: this.anims.generateFrameNumbers('elliot', { start: 5, end: 8 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
         this.anims.create({
             key: 'robin-left',
             frames: this.anims.generateFrameNumbers('robin', { start: 0, end: 3 }),
@@ -86,29 +88,19 @@ export default class Demo extends Phaser.Scene
             repeat: -1
         });
 
-        this.anims.create({
-            key: 'elliot-left',
-            frames: this.anims.generateFrameNumbers('elliot', { start: 0, end: 3 }),
-            frameRate: 10,
-            repeat: -1
-        });
     
-        this.anims.create({
-            key: 'elliot-turn',
-            frames: [ { key: 'elliot', frame: 4 } ],
-            frameRate: 20
+        this.player1 = new Robin({
+            scene: this,
+            x: 100,
+            y: 450
         });
-    
-        this.anims.create({
-            key: 'elliot-right',
-            frames: this.anims.generateFrameNumbers('elliot', { start: 5, end: 8 }),
-            frameRate: 10,
-            repeat: -1
+        this.player2 = new Elliot({
+            scene: this,
+            x: 700,
+            y: 450
         });
     
         this.physics.add.collider([this.player1, this.player2], this.platforms);
-    
-        this.cursors = this.input.keyboard.createCursorKeys();
     
         let stars = this.physics.add.group({
             key: 'star',
@@ -139,59 +131,15 @@ export default class Demo extends Phaser.Scene
         this.physics.add.collider([this.player1, this.player2], this.bombs, this.hitBomb, null, this);
         this.physics.add.collider(this.player1, this.player2, null, null, this);
 
-        this.keys = this.input.keyboard.addKeys({
-            'a': Phaser.Input.Keyboard.KeyCodes.A,
-            'w': Phaser.Input.Keyboard.KeyCodes.W,
-            's': Phaser.Input.Keyboard.KeyCodes.S,
-            'd': Phaser.Input.Keyboard.KeyCodes.D,
-        }) as {
-            'a': Phaser.Input.Keyboard.Key,
-            'w': Phaser.Input.Keyboard.Key,
-            's': Phaser.Input.Keyboard.Key,
-            'd': Phaser.Input.Keyboard.Key,
-        };
+        this.physics.add.collider([this.player1.fireballs, this.player2.fireballs], this.bombs, this.destroyBomb, null, this);
+        
     }
 
     update ()
     {
-        if (this.cursors.left.isDown)
-        {
-            this.player1.setVelocityX(-320);
+        this.player1.update();
+        this.player2.update();
 
-            this.player1.anims.play('robin-left', true);
-        }
-        else if (this.cursors.right.isDown)
-        {
-            this.player1.setVelocityX(160*2);
-
-            this.player1.anims.play('robin-right', true);
-        }
-        else
-        {
-            this.player1.setVelocityX(0);
-
-            this.player1.anims.play('robin-turn');
-        }
-
-        if (this.cursors.up.isDown && this.player1.body.touching.down)
-        {
-            this.player1.setVelocityY(-400);
-        }
-
-        if (this.keys.a.isDown) {
-            this.player2.setVelocityX(-320);
-            this.player2.anims.play('elliot-left', true);
-        } else if (this.keys.d.isDown) {
-            this.player2.setVelocityX(320);
-            this.player2.anims.play('elliot-right', true);
-        } else {
-            this.player2.setVelocityX(0);
-            this.player2.anims.play('elliot-turn');
-        }
-
-        if (this.keys.w.isDown && this.player2.body.touching.down) {
-            this.player2.setVelocityY(-400);
-        }
     }
 
     collectStar (player, star)
@@ -229,6 +177,11 @@ export default class Demo extends Phaser.Scene
         // player.anims.play('turn');
     
         // this.gameOver = true;
+    }
+
+    destroyBomb (fireball: Phaser.Physics.Arcade.Sprite, bomb: Phaser.Physics.Arcade.Sprite) {
+        fireball.destroy();
+        bomb.destroy();
     }
 }
 
