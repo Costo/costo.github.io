@@ -49,16 +49,21 @@ export default class Demo extends Phaser.Scene
         this.platforms.create(750, 220, 'ground');
 
         this.anims.create({
+            key: 'elliot-looks-right',
+            frames: [ { key: 'elliot', frame: 5 } ],
+            frameRate: 20
+        });
+        this.anims.create({
+            key: 'elliot-looks-left',
+            frames: [ { key: 'elliot', frame: 2 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
             key: 'elliot-left',
             frames: this.anims.generateFrameNumbers('elliot', { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
-        });
-
-        this.anims.create({
-            key: 'elliot-turn',
-            frames: [ { key: 'elliot', frame: 4 } ],
-            frameRate: 20
         });
     
         this.anims.create({
@@ -69,16 +74,22 @@ export default class Demo extends Phaser.Scene
         });
 
         this.anims.create({
+            key: 'robin-looks-right',
+            frames: [ { key: 'robin', frame: 5 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: 'robin-looks-left',
+            frames: [ { key: 'robin', frame: 2 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
             key: 'robin-left',
             frames: this.anims.generateFrameNumbers('robin', { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
-        });
-    
-        this.anims.create({
-            key: 'robin-turn',
-            frames: [ { key: 'robin', frame: 4 } ],
-            frameRate: 20
         });
     
         this.anims.create({
