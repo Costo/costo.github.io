@@ -73,6 +73,7 @@ export abstract class Player extends Phaser.Physics.Arcade.Sprite {
         if (this.keys.fire.isDown) {
             const fireball = this.fireballs.create(this.x, this.y, 'fireball');
             if (fireball != null) {
+                this.emit('fireball', this);
                 fireball.setCollideWorldBounds(false);
                 if (this.looksRight) {
                     fireball.setVelocity(1200, 0);
