@@ -100,10 +100,11 @@
             //addPattern(loaf, 32, 50);
             //addPattern(loaf, 60, 70);
             draw();
-            setInterval(function() {
+            requestAnimationFrame(function f() {
                 iterate();
                 draw();
-            }, 30)
+                requestAnimationFrame(f);
+            });
 
             function addPattern(pattern, row, col) {
                 for (let i = 0; i < pattern.length; i++)
