@@ -47,6 +47,13 @@ export class Demo extends Phaser.Scene {
       this.platforms.create(750, 220, 'ground')
 
       this.anims.create({
+        key: 'sparkle',
+        frames: this.anims.generateFrameNumbers('gem', { frames: [0, 1, 2, 3] }),
+        frameRate: 8,
+        repeat: -1
+      })
+
+      this.anims.create({
         key: 'elliot-looks-right',
         frames: [{ key: 'elliot', frame: 5 }],
         frameRate: 20
@@ -127,6 +134,8 @@ export class Demo extends Phaser.Scene {
         repeat: 4,
         setXY: { x: 12 + 70, y: 0, stepX: 140 }
       })
+      gems.playAnimation('sparkle')
+
       this.tokens = this.physics.add.group([...stars.children.entries, ...gems.children.entries])
 
       this.tokens.children.iterate(function (child: Phaser.Physics.Arcade.Sprite) {
