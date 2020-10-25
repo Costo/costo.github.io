@@ -132,6 +132,7 @@ export class Demo extends Phaser.Scene {
       const gems = this.physics.add.group({
         key: 'gem',
         repeat: 4,
+        randomFrame: true,
         setXY: { x: 12 + 70, y: 0, stepX: 140 }
       })
       gems.playAnimation('sparkle')

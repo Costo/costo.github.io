@@ -17,7 +17,7 @@ export class Loading extends Phaser.Scene {
     )
     this.load.spritesheet('gem',
       'assets/gem.png',
-      { frameWidth: 30, frameHeight: 32 }
+      { frameWidth: 32, frameHeight: 32 }
     )
     this.load.spritesheet('elliot',
       'assets/elliot-spritesheet.png',
