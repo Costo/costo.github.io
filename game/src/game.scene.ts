@@ -47,6 +47,13 @@ export class Demo extends Phaser.Scene {
       this.platforms.create(750, 220, 'ground')
 
       this.anims.create({
+        key: 'crawl',
+        frames: this.anims.generateFrameNumbers('snake', { frames: [0, 1] }),
+        frameRate: 3,
+        repeat: -1
+      })
+
+      this.anims.create({
         key: 'sparkle',
         frames: this.anims.generateFrameNumbers('gem', { frames: [0, 1, 2, 3] }),
         frameRate: 8,
@@ -128,6 +135,11 @@ export class Demo extends Phaser.Scene {
         repeat: 5,
         setXY: { x: 12, y: 0, stepX: 140 }
       })
+
+      const snake = this.physics.add.sprite(100, 100, 'snake')
+      snake.anims.play('crawl')
+      snake.setVelocityX(15)
+      this.physics.add.collider(snake, this.platforms)
 
       const gems = this.physics.add.group({
         key: 'gem',
