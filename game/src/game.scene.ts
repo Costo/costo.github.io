@@ -197,7 +197,7 @@ export class Demo extends Phaser.Scene {
           var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400)
           var bomb = this.bombs.create(x, 16, 'bomb')
           bomb.setBounce(1)
-          bomb.setScale(4)
+          bomb.setScale(1)
           bomb.setCollideWorldBounds(true)
           bomb.setVelocity(Phaser.Math.Between(-200, 200), 20)
         }
